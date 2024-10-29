@@ -1,0 +1,12 @@
+name: CWR_SDM_Shiny
+title: CWR_SDM_Shiny
+username: julrich
+account: julrich
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13172246
+bundleId: 9287246
+url: https://julrich.shinyapps.io/CWR_SDM_Shiny/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
