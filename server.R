@@ -2,50 +2,49 @@
 # server.R for CWR Shiny App  #
 ###############################
 
-# Written by Jens Ulrich and Erika Luna Perez
-# February 2022
+# Written by Jens Ulrich 
+# October 2024
 
 ########################################
 # DATA INPUTS                          #
 ########################################
 
-fus_high_ssp585_70 <- readRDS(paste0("data/fus_pred_high_ssp585_70_crop.Rdata"))
-fus_high_ssp585_50 <- readRDS(paste0("data/fus_pred_high_ssp585_50_crop.Rdata"))
-fus_high_ssp585_30 <- readRDS(paste0("data/fus_pred_high_ssp585_30_crop.Rdata"))
-fus_mod_ssp585_70 <- readRDS(paste0("data/fus_pred_mod_ssp585_70_crop.Rdata"))
-fus_mod_ssp585_50 <- readRDS(paste0("data/fus_pred_mod_ssp585_50_crop.Rdata"))
-fus_mod_ssp585_30 <- readRDS(paste0("data/fus_pred_mod_ssp585_30_crop.Rdata"))
-fus_low_ssp585_70 <- readRDS(paste0("data/fus_pred_low_ssp585_70_crop.Rdata"))
-fus_low_ssp585_50 <- readRDS(paste0("data/fus_pred_low_ssp585_50_crop.Rdata"))
-fus_low_ssp585_30 <- readRDS(paste0("data/fus_pred_low_ssp585_30_crop.Rdata"))
-fus_high_ssp245_70 <- readRDS(paste0("data/fus_pred_high_ssp245_70_crop.Rdata"))
-fus_high_ssp245_50 <- readRDS(paste0("data/fus_pred_high_ssp245_50_crop.Rdata"))
-fus_high_ssp245_30 <- readRDS(paste0("data/fus_pred_high_ssp245_30_crop.Rdata"))
-fus_mod_ssp245_70 <- readRDS(paste0("data/fus_pred_mod_ssp245_70_crop.Rdata"))
-fus_mod_ssp245_50 <- readRDS(paste0("data/fus_pred_mod_ssp245_50_crop.Rdata"))
-fus_mod_ssp245_30 <- readRDS(paste0("data/fus_pred_mod_ssp245_30_crop.Rdata"))
-fus_low_ssp245_70 <- readRDS(paste0("data/fus_pred_low_ssp245_70_crop.Rdata"))
-fus_low_ssp245_50 <- readRDS(paste0("data/fus_pred_low_ssp245_50_crop.Rdata"))
-fus_low_ssp245_30 <- readRDS(paste0("data/fus_pred_low_ssp245_30_crop.Rdata"))
+#fus_high_ssp585_70 <- readRDS(paste0("data/fus_pred_high_ssp585_70_crop.rds"))
+#fus_high_ssp585_50 <- readRDS(paste0("data/fus_pred_high_ssp585_50_crop.rds"))
+#fus_high_ssp585_30 <- readRDS(paste0("data/fus_pred_high_ssp585_30_crop.rds"))
+#fus_mod_ssp585_70 <- readRDS(paste0("data/fus_pred_mod_ssp585_70_crop.rds"))
+#fus_mod_ssp585_30 <- readRDS(paste0("data/fus_pred_mod_ssp585_30_crop.rds"))
+#fus_low_ssp585_70 <- readRDS(paste0("data/fus_pred_low_ssp585_70_crop.rds"))
+#fus_low_ssp585_50 <- readRDS(paste0("data/fus_pred_low_ssp585_50_crop.rds"))
+#fus_low_ssp585_30 <- readRDS(paste0("data/fus_pred_low_ssp585_30_crop.rds"))
+#fus_high_ssp245_70 <- readRDS(paste0("data/fus_pred_high_ssp245_70_crop.rds"))
+#fus_high_ssp245_50 <- readRDS(paste0("data/fus_pred_high_ssp245_50_crop.rds"))
+#fus_high_ssp245_30 <- readRDS(paste0("data/fus_pred_high_ssp245_30_crop.rds"))
+#fus_mod_ssp245_70 <- readRDS(paste0("data/fus_pred_mod_ssp245_70_crop.rds"))
+#fus_mod_ssp245_50 <- readRDS(paste0("data/fus_pred_mod_ssp245_50_crop.rds"))
+#fus_mod_ssp245_30 <- readRDS(paste0("data/fus_pred_mod_ssp245_30_crop.rds"))
+#fus_low_ssp245_70 <- readRDS(paste0("data/fus_pred_low_ssp245_70_crop.rds"))
+#fus_low_ssp245_50 <- readRDS(paste0("data/fus_pred_low_ssp245_50_crop.rds"))
+#fus_low_ssp245_30 <- readRDS(paste0("data/fus_pred_low_ssp245_30_crop.rds"))
 
-cor_high_ssp585_70 <- readRDS(paste0("data/cor_pred_high_ssp585_70_crop.Rdata"))
-cor_high_ssp585_50 <- readRDS(paste0("data/cor_pred_high_ssp585_50_crop.Rdata"))
-cor_high_ssp585_30 <- readRDS(paste0("data/cor_pred_high_ssp585_30_crop.Rdata"))
-cor_mod_ssp585_70 <- readRDS(paste0("data/cor_pred_mod_ssp585_70_crop.Rdata"))
-cor_mod_ssp585_50 <- readRDS(paste0("data/cor_pred_mod_ssp585_50_crop.Rdata"))
-cor_mod_ssp585_30 <- readRDS(paste0("data/cor_pred_mod_ssp585_30_crop.Rdata"))
-cor_low_ssp585_70 <- readRDS(paste0("data/cor_pred_low_ssp585_70_crop.Rdata"))
-cor_low_ssp585_50 <- readRDS(paste0("data/cor_pred_low_ssp585_50_crop.Rdata"))
-cor_low_ssp585_30 <- readRDS(paste0("data/cor_pred_low_ssp585_30_crop.Rdata"))
-cor_high_ssp245_70 <- readRDS(paste0("data/cor_pred_high_ssp245_70_crop.Rdata"))
-cor_high_ssp245_50 <- readRDS(paste0("data/cor_pred_high_ssp245_50_crop.Rdata"))
-cor_high_ssp245_30 <- readRDS(paste0("data/cor_pred_high_ssp245_30_crop.Rdata"))
-cor_mod_ssp245_70 <- readRDS(paste0("data/cor_pred_mod_ssp245_70_crop.Rdata"))
-cor_mod_ssp245_50 <- readRDS(paste0("data/cor_pred_mod_ssp245_50_crop.Rdata"))
-cor_mod_ssp245_30 <- readRDS(paste0("data/cor_pred_mod_ssp245_30_crop.Rdata"))
-cor_low_ssp245_70 <- readRDS(paste0("data/cor_pred_low_ssp245_70_crop.Rdata"))
-cor_low_ssp245_50 <- readRDS(paste0("data/cor_pred_low_ssp245_50_crop.Rdata"))
-cor_low_ssp245_30 <- readRDS(paste0("data/cor_pred_low_ssp245_30_crop.Rdata"))
+#cor_high_ssp585_70 <- readRDS(paste0("data/cor_pred_high_ssp585_70_crop.rds"))
+#cor_high_ssp585_50 <- readRDS(paste0("data/cor_pred_high_ssp585_50_crop.rds"))
+#cor_high_ssp585_30 <- readRDS(paste0("data/cor_pred_high_ssp585_30_crop.rds"))
+#cor_mod_ssp585_70 <- readRDS(paste0("data/cor_pred_mod_ssp585_70_crop.rds"))
+#cor_mod_ssp585_50 <- readRDS(paste0("data/cor_pred_mod_ssp585_50_crop.rds"))
+#cor_mod_ssp585_30 <- readRDS(paste0("data/cor_pred_mod_ssp585_30_crop.rds"))
+#cor_low_ssp585_70 <- readRDS(paste0("data/cor_pred_low_ssp585_70_crop.rds"))
+#cor_low_ssp585_50 <- readRDS(paste0("data/cor_pred_low_ssp585_50_crop.rds"))
+#cor_low_ssp585_30 <- readRDS(paste0("data/cor_pred_low_ssp585_30_crop.rds"))
+#cor_high_ssp245_70 <- readRDS(paste0("data/cor_pred_high_ssp245_70_crop.rds"))
+#cor_high_ssp245_50 <- readRDS(paste0("data/cor_pred_high_ssp245_50_crop.rds"))
+#cor_high_ssp245_30 <- readRDS(paste0("data/cor_pred_high_ssp245_30_crop.rds"))
+#cor_mod_ssp245_70 <- readRDS(paste0("data/cor_pred_mod_ssp245_70_crop.rds"))
+#cor_mod_ssp245_50 <- readRDS(paste0("data/cor_pred_mod_ssp245_50_crop.rds"))
+#cor_mod_ssp245_30 <- readRDS(paste0("data/cor_pred_mod_ssp245_30_crop.rds"))
+#cor_low_ssp245_70 <- readRDS(paste0("data/cor_pred_low_ssp245_70_crop.rds"))
+#cor_low_ssp245_50 <- readRDS(paste0("data/cor_pred_low_ssp245_50_crop.rds"))
+#cor_low_ssp245_30 <- readRDS(paste0("data/cor_pred_low_ssp245_30_crop.rds"))
 
 ################
 # SERVER LOGIC #
@@ -96,9 +95,10 @@ shinyServer(function(input, output, session){
       stringy4 = "low"
     }
     
-    #stringy_cat <- paste0(stringy1, "_", stringy4, "_", stringy2, "_", stringy3)
+    stringy_cat <- paste0(stringy1, "_pred_", stringy4, "_", stringy2, "_", stringy3)
     
-    r <- get(paste0(stringy1, "_", stringy4, "_", stringy2, "_", stringy3))
+    r <- raster(paste0("data/", stringy_cat, "_crop.tif"))
+    #r <- raster("data/fus_pred_mod_ssp585_70_crop.tif")
     r[r[] < 1 ] = NA 
     
     return(r)

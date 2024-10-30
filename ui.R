@@ -12,6 +12,7 @@
 library(shiny)
 library(tidyverse)
 library(raster)
+library(sp)
 library(leaflet)
 library(htmltools)
 library(shinydashboard)
@@ -29,7 +30,7 @@ ui <- fluidPage(
   
   dashboardPage(
     
-    skin = "blue",
+    skin = "red",
     
     dashboardHeader(title = "Canadian Crop Wild Relative Species Distribution Models", titleWidth = 1000),
     

@@ -1,5 +1,5 @@
 ### About
 
-This shiny app is developed and maintained by Jens Ulrich (jensj27[at]mail.ubc.ca).
+This shiny app developed and maintained by Jens Ulrich (jensj27[at]mail.ubc.ca).
 
 
