@@ -5,7 +5,7 @@ account: julrich
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13172246
-bundleId: 9287580
+bundleId: 9298922
 url: https://julrich.shinyapps.io/CWR_SDM_Shiny/
 version: 1
 asMultiple: FALSE

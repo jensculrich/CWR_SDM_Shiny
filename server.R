@@ -5,47 +5,6 @@
 # Written by Jens Ulrich 
 # October 2024
 
-########################################
-# DATA INPUTS                          #
-########################################
-
-#fus_high_ssp585_70 <- readRDS(paste0("data/fus_pred_high_ssp585_70_crop.rds"))
-#fus_high_ssp585_50 <- readRDS(paste0("data/fus_pred_high_ssp585_50_crop.rds"))
-#fus_high_ssp585_30 <- readRDS(paste0("data/fus_pred_high_ssp585_30_crop.rds"))
-#fus_mod_ssp585_70 <- readRDS(paste0("data/fus_pred_mod_ssp585_70_crop.rds"))
-#fus_mod_ssp585_30 <- readRDS(paste0("data/fus_pred_mod_ssp585_30_crop.rds"))
-#fus_low_ssp585_70 <- readRDS(paste0("data/fus_pred_low_ssp585_70_crop.rds"))
-#fus_low_ssp585_50 <- readRDS(paste0("data/fus_pred_low_ssp585_50_crop.rds"))
-#fus_low_ssp585_30 <- readRDS(paste0("data/fus_pred_low_ssp585_30_crop.rds"))
-#fus_high_ssp245_70 <- readRDS(paste0("data/fus_pred_high_ssp245_70_crop.rds"))
-#fus_high_ssp245_50 <- readRDS(paste0("data/fus_pred_high_ssp245_50_crop.rds"))
-#fus_high_ssp245_30 <- readRDS(paste0("data/fus_pred_high_ssp245_30_crop.rds"))
-#fus_mod_ssp245_70 <- readRDS(paste0("data/fus_pred_mod_ssp245_70_crop.rds"))
-#fus_mod_ssp245_50 <- readRDS(paste0("data/fus_pred_mod_ssp245_50_crop.rds"))
-#fus_mod_ssp245_30 <- readRDS(paste0("data/fus_pred_mod_ssp245_30_crop.rds"))
-#fus_low_ssp245_70 <- readRDS(paste0("data/fus_pred_low_ssp245_70_crop.rds"))
-#fus_low_ssp245_50 <- readRDS(paste0("data/fus_pred_low_ssp245_50_crop.rds"))
-#fus_low_ssp245_30 <- readRDS(paste0("data/fus_pred_low_ssp245_30_crop.rds"))
-
-#cor_high_ssp585_70 <- readRDS(paste0("data/cor_pred_high_ssp585_70_crop.rds"))
-#cor_high_ssp585_50 <- readRDS(paste0("data/cor_pred_high_ssp585_50_crop.rds"))
-#cor_high_ssp585_30 <- readRDS(paste0("data/cor_pred_high_ssp585_30_crop.rds"))
-#cor_mod_ssp585_70 <- readRDS(paste0("data/cor_pred_mod_ssp585_70_crop.rds"))
-#cor_mod_ssp585_50 <- readRDS(paste0("data/cor_pred_mod_ssp585_50_crop.rds"))
-#cor_mod_ssp585_30 <- readRDS(paste0("data/cor_pred_mod_ssp585_30_crop.rds"))
-#cor_low_ssp585_70 <- readRDS(paste0("data/cor_pred_low_ssp585_70_crop.rds"))
-#cor_low_ssp585_50 <- readRDS(paste0("data/cor_pred_low_ssp585_50_crop.rds"))
-#cor_low_ssp585_30 <- readRDS(paste0("data/cor_pred_low_ssp585_30_crop.rds"))
-#cor_high_ssp245_70 <- readRDS(paste0("data/cor_pred_high_ssp245_70_crop.rds"))
-#cor_high_ssp245_50 <- readRDS(paste0("data/cor_pred_high_ssp245_50_crop.rds"))
-#cor_high_ssp245_30 <- readRDS(paste0("data/cor_pred_high_ssp245_30_crop.rds"))
-#cor_mod_ssp245_70 <- readRDS(paste0("data/cor_pred_mod_ssp245_70_crop.rds"))
-#cor_mod_ssp245_50 <- readRDS(paste0("data/cor_pred_mod_ssp245_50_crop.rds"))
-#cor_mod_ssp245_30 <- readRDS(paste0("data/cor_pred_mod_ssp245_30_crop.rds"))
-#cor_low_ssp245_70 <- readRDS(paste0("data/cor_pred_low_ssp245_70_crop.rds"))
-#cor_low_ssp245_50 <- readRDS(paste0("data/cor_pred_low_ssp245_50_crop.rds"))
-#cor_low_ssp245_30 <- readRDS(paste0("data/cor_pred_low_ssp245_30_crop.rds"))
-
 ################
 # SERVER LOGIC #
 ################
@@ -77,7 +36,9 @@ shinyServer(function(input, output, session){
     
     c <- input$inSelectedProjection
     
-    if(c == "2030"){
+    if(c=="historical (1970-2000)"){
+      stringy3 = "hist"
+    } else if(c == "2030"){
       stringy3 = "30"
     } else if(c == "2050") {
       stringy3 = "50"
@@ -95,31 +56,35 @@ shinyServer(function(input, output, session){
       stringy4 = "low"
     }
     
-    stringy_cat <- paste0(stringy1, "_pred_", stringy4, "_", stringy2, "_", stringy3)
+    if(c=="historical (1970-2000)"){
+      stringy_cat <- paste0("data/", stringy1, "_pred_", stringy4, "_", stringy3, "_crop.tif")
+    } else{
+      stringy_cat <- paste0("data/", stringy1, "_pred_", stringy4, "_", stringy2, "_", stringy3, "_crop.tif")
+    }
     
-    r <- raster(paste0("data/", stringy_cat, "_crop.tif"))
-    #r <- raster("data/fus_pred_mod_ssp585_70_crop.tif")
+    r <- raster(stringy_cat)
     r[r[] < 1 ] = NA 
     
     return(r)
     
   })
   
-  output$choroplethPlot3 <- renderLeaflet({
+  output$choroplethPlot <- renderLeaflet({
     
     # Basic choropleth with leaflet
     leaflet() %>% 
       addTiles() %>%
-      setView(lat=45, lng=-98 , zoom=3.5)  
+      setView(lat=50, lng=-98 , zoom=3.5)  
     
   }) # end renderPlot
   
   observe({
-    leafletProxy("choroplethPlot3") %>%
-      clearImages() %>%
-      addRasterImage(applePlotData(),
-                     colors = "blue",
-                     opacity = 0.5)
+    
+    leafletProxy("choroplethPlot") %>%
+      leaflet::clearImages() %>%
+      leaflet::addRasterImage(applePlotData(),
+                     opacity = 0.5,
+                     colors = "blue")
   })
   
 }) # shinyServer
